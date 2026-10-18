@@ -1,8 +1,9 @@
 namespace SBCC {
     namespace App {
         void Main() {
+            counterFont = nvg::LoadFont("DroidSans.ttf");
             if (!Offsets::Initialize()) return;
-            log(pluginMeta.Name + ": core prototype loaded; counter display and controls are pending.", LogLevel::Info);
+            log("Loaded " + pluginMeta.Name + " v" + pluginMeta.Version, LogLevel::Info);
             while (true) {
                 try {
                     Counter::Update();
@@ -14,6 +15,12 @@ namespace SBCC {
                     }
                 }
                 sleep(100);
+            }
+        }
+
+        void RenderMenu() {
+            if (UI::MenuItem(MenuTitle(), "", showCounter)) {
+                showCounter = !showCounter;
             }
         }
     }
