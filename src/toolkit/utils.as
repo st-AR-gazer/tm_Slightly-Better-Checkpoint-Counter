@@ -99,12 +99,12 @@ namespace _IO {
             if (verbose) log(
                 "Writing to file: " + path,
                 LogLevel::Info,
-                95,
+                99,
                 "_IO::File::WriteFile"
             );
 
             if (path.EndsWith("/") || path.EndsWith("\\")) {
-                log("Invalid file path: " + path, LogLevel::Error, 98, "_IO::File::WriteFile");
+                log("Invalid file path: " + path, LogLevel::Error, 107, "_IO::File::WriteFile");
                 return;
             }
 
@@ -144,11 +144,11 @@ namespace _IO {
             if (verbose) log(
                 "Reading file: " + path,
                 LogLevel::Info,
-                137,
+                144,
                 "_IO::File::ReadFileToEnd"
             );
             if (!IO::FileExists(path)) {
-                log("File does not exist: " + path, LogLevel::Error, 139, "_IO::File::ReadFileToEnd");
+                log("File does not exist: " + path, LogLevel::Error, 151, "_IO::File::ReadFileToEnd");
                 return "";
             }
 
@@ -160,7 +160,7 @@ namespace _IO {
 
         string ReadSourceFileToEnd(const string &in path, bool verbose = false) {
             if (!IO::FileExists(path)) {
-                log("File does not exist: " + path, LogLevel::Error, 151, "_IO::File::ReadSourceFileToEnd");
+                log("File does not exist: " + path, LogLevel::Error, 163, "_IO::File::ReadSourceFileToEnd");
                 return "";
             }
 
@@ -178,7 +178,7 @@ namespace _IO {
             if (verbose) log(
                 "Moving the file content",
                 LogLevel::Info,
-                166,
+                178,
                 "_IO::File::ReadSourceFileToEnd"
             );
 
@@ -187,7 +187,7 @@ namespace _IO {
             if (verbose) log(
                 "Finished moving the file",
                 LogLevel::Info,
-                171,
+                187,
                 "_IO::File::ReadSourceFileToEnd"
             );
 
@@ -200,7 +200,7 @@ namespace _IO {
                 if (verbose) log(
                     "Source file does not exist: " + source,
                     LogLevel::Error,
-                    179,
+                    200,
                     "_IO::File::CopyFileTo"
                 );
                 return;
@@ -209,7 +209,7 @@ namespace _IO {
                 if (verbose) log(
                     "Destination file already exists: " + destination,
                     LogLevel::Error,
-                    183,
+                    209,
                     "_IO::File::CopyFileTo"
                 );
                 return;
@@ -224,11 +224,11 @@ namespace _IO {
             if (verbose) log(
                 "Attempting to rename file: " + filePath,
                 LogLevel::Info,
-                193,
+                224,
                 "_IO::File::RenameFile"
             );
             if (!IO::FileExists(filePath)) {
-                log("File does not exist: " + filePath, LogLevel::Error, 195, "_IO::File::RenameFile");
+                log("File does not exist: " + filePath, LogLevel::Error, 231, "_IO::File::RenameFile");
                 return;
             }
 
@@ -259,7 +259,7 @@ namespace _IO {
             if (verbose) log(
                 "Folder does not exist: " + path,
                 LogLevel::Info,
-                225,
+                259,
                 "_IO::OpenFolder"
             );
         }

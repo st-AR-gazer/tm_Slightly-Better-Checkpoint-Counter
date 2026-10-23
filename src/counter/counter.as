@@ -1,5 +1,10 @@
 namespace SBCC {
     namespace Counter {
+        const uint maxCheckpointCount = 65536;
+        const uint64 minBufferAddress = 0x10000;
+        const uint64 maxBufferAddress = 0x00007FFFFFFFFFFF;
+        const uint checkpointAlignment = 4;
+
         CheckpointModel model;
         CSmArena@ currentArena;
         CGameCtnChallenge@ currentMap;
@@ -12,7 +17,7 @@ namespace SBCC {
         bool readFailed = false;
         string status = "Enter a race to show checkpoint progress.";
 
-        void Unavailable(const string &in reason) {
+        void SetUnavailable(const string &in reason) {
             ready = false;
             status = reason;
             model.BeginSample();
@@ -50,7 +55,7 @@ namespace SBCC {
                 @currentMap = null;
                 @currentRecording = null;
                 model.Clear();
-                Unavailable("Enter a race to show checkpoint progress.");
+                SetUnavailable("Enter a race to show checkpoint progress.");
                 return;
             }
             if (playground.GameTerminals.Length == 0) return;
@@ -58,7 +63,7 @@ namespace SBCC {
             if (terminal is null) return;
             auto player = cast<CSmPlayer>(terminal.ControlledPlayer);
             if (player is null || terminal.GUIPlayer !is player) {
-                Unavailable("Waiting for the local player.");
+                SetUnavailable("Waiting for the local player.");
                 return;
             }
             auto script = cast<CSmScriptPlayer>(player.ScriptAPI);
@@ -95,11 +100,11 @@ namespace SBCC {
             }
             uint count = Dev::GetOffsetUint32(recording, Offsets::ghostCheckpoints + Offsets::bufferLength);
             uint64 buffer = Dev::GetOffsetUint64(recording, Offsets::ghostCheckpoints);
-            if (count > 65536 ||
+            if (count > maxCheckpointCount ||
                 (count > 0 &&
-                 (buffer < 0x10000 ||
-                  buffer % 4 != 0 ||
-                  buffer > 0x00007FFFFFFFFFFF - uint64(count) * Offsets::checkpointStride))) {
+                 (buffer < minBufferAddress ||
+                  buffer % checkpointAlignment != 0 ||
+                  buffer > maxBufferAddress - uint64(count) * Offsets::checkpointStride))) {
                 throw("Invalid checkpoint buffer");
             }
             if (waitingForNewRecording &&

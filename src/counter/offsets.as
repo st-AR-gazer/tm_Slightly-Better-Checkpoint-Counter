@@ -1,6 +1,5 @@
 namespace SBCC {
     namespace Offsets {
-
         // Ty ArEyeses for letting me use your reflection code :PeepoHeart:
         // And ty XertroV for finding the offsets in the first place xD
 
@@ -30,7 +29,7 @@ namespace SBCC {
                 return true;
             } catch {
                 Counter::status = "Checkpoint offsets unavailable";
-                log(Counter::status + ": " + getExceptionInfo(), LogLevel::Error);
+                log(Counter::status + ": " + getExceptionInfo(), LogLevel::Error, 32, "SBCC::Offsets::Initialize");
                 return false;
             }
         }

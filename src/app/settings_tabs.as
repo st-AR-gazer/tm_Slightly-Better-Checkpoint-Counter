@@ -1,9 +1,9 @@
 [SettingsTab name="General" icon="Cog" order=1]
-void RenderSBCCGeneralSettingsTab() {
-    SBCC::App::RenderGeneralSettingsUI();
+void RenderGeneralSettingsTab() {
+    SBCC::App::RenderSettings();
 }
 
 [SettingsTab name="Logging" icon="ListAlt" order=99]
-void RenderSBCCLoggingSettingsTab() {
-    SBCC::App::RenderLoggingSettingsUI();
+void RenderLoggingSettingsTab() {
+    log::RenderSettingsUI("sbcc-logging");
 }
